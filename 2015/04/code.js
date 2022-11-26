@@ -47,7 +47,18 @@ function cleanData( input ){
 function part1( data ){
     var answer = 0;
 
-    data.forEach();
+    data.forEach( secret_key => {
+        print( 'Secret Key: ' + secret_key );
+        var num = 0;
+        var hash = md5( secret_key + num );
+        while( hash.slice(0,5) != '00000' ){
+            num++
+            hash = md5( secret_key + num );
+            print( hash + ': ' + num );
+        }
+
+        print( num );
+    } );
 
     return answer;
 }
