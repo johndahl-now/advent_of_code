@@ -11,22 +11,23 @@ exports.numSort = function( arr, order ){
 }
 
 exports.arrParseInt = function( arr ){
-    return arr.map( num => { return parseInt( num ); } );
+    return arr.map( num => parseInt( num ) );
 }
 
 exports.arrParseNum = function( arr ){
-    return arr.map( num => { return Number( num ); } );
+    return arr.map( num => Number( num ) );
 }
 
 exports.arrSum = function( arr ){
-    var total = 0;
-    arr.forEach( i => total += i );
-    return total;
+
+    return arr.reduce( function( total, value ){
+        return total += value;
+    }, 0 );
 }
 
 exports.arrProduct = function( arr ){
-    var total = 1;
-    arr.forEach( i => total *= i );
-    return total;
+    return arr.reduce( function( total, value ){
+        return total *= value;
+    }, 1 );
 }
 

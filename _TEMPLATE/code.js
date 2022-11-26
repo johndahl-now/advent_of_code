@@ -2,11 +2,11 @@
 
 // Puzzle URL: 
 
-var lib = require('../../lib'),
-    sample = lib.readFile('input_sample.txt'),
-    input = lib.readFile('input.txt'),
+var lib = require( '../../lib' ),
     print = console.log,
-    table = console.table;
+    table = console.table,
+    sample = lib.readFile( 'input_sample.txt' ),
+    input = lib.readFile( 'input.txt' );
     
 
 /*****************************************
