@@ -34,28 +34,14 @@ table( result );
  *****************************************/ 
 
 
-function cleanData( input ){
-    /** 
-     * Given the puzzle raw input, 
-     * clean and format the raw information into usable data, and
-     * return the data.
-    */
-    return input
-        .split( '\n' );
-}
-
 function part1( data ){
     var answer = 0;
-
-    data.forEach();
 
     return answer;
 }
 
 function part2( data ){
     var answer = 0;
-
-    data.forEach();
 
     return answer;
 }
