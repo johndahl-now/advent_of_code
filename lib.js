@@ -1,8 +1,14 @@
 const fs = require('fs');
 
-// if( !Array.prototype ){
-//     Array.prototype = 
-// }
+/* New Array Method Template
+if( !Array.prototype.newMethod ){
+    Array.prototype.newMethod = function( param1 ){
+        // Do something here.
+        // Reference the array with `this`.
+        // Return a new array to enable chaining.
+    }
+}
+*/
 
 exports.print = console.log;
 exports.table = console.table;
@@ -33,6 +39,12 @@ if( !Array.prototype.product ){
 if( !Array.prototype.parseInt ){
     Array.prototype.parseInt = function(){
         return this.map( num => parseInt( num ) );
+    }
+}
+
+if( !Array.prototype.parseNum ){
+    Array.prototype.parseNum = function(){
+        return this.map( num => Number( num ) );
     }
 }
 
