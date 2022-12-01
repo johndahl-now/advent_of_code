@@ -3,8 +3,8 @@
 // Puzzle URL: 
 
 var lib = require( '../../lib' ),
-    print = console.log,
-    table = console.table,
+    print = lib.print,
+    table = lib.table,
     sample = lib.readFile( 'input_sample.txt' ),
     input = lib.readFile( 'input.txt' );
     
@@ -41,9 +41,10 @@ function part1( data ){
     var answer = 0;
 
     data.forEach( ( elf, idx, arr ) => {
-        elf = elf.split('\n');
-        elf = lib.arrParseInt( elf );
-        elf = lib.arrSum( elf );
+        elf = elf.split('\n')
+            .parseInt()
+            .sum();
+ 
         if( elf > answer ){
             answer = elf;
         }
@@ -56,13 +57,16 @@ function part2( data ){
     var answer = [];
 
     data.forEach( ( elf, idx, arr ) => {
-        elf = elf.split('\n');
-        elf = lib.arrParseInt( elf );
-        answer.push( lib.arrSum( elf ) );
+        elf = elf.split('\n')
+            .parseInt()
+            .sum();
+
+        answer.push( elf );
     } );
 
-    answer = lib.arrSum( lib.numSort( answer, 'desc' ).slice(0,3) );
-
-    return answer;
+    return answer
+        .numSort( 'desc' )
+        .slice( 0, 3 )
+        .sum();
 }
 
