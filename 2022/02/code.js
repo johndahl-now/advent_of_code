@@ -31,15 +31,13 @@ table( result );
  *  FUNCTIONS
  *****************************************/ 
 
- function cleanData( input ){
+function cleanData( input ){
     return input.split('\n');
 }
 
 function part1( data ){
     
-    var scores = data.map( row => {
-        return calculateScore( row )
-     } );
+    var scores = data.map( row => calculateScore( row ) );
 
     return scores.sum();
 }
