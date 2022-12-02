@@ -37,40 +37,24 @@ table( result );
 
 function part1( data ){
     
-    var scores = data.map( row => getScore( row ) )
+    var scores = data.map( row => {
+        return calculateScore( row )
+     } );
 
     return scores.sum();
 }
 
 function part2( data ){
-    var plays = {
-        'A': {              // Opponent plays Rock
-            'X': 'Z',       // I need to Lose
-            'Y': 'X',       // I need to Draw
-            'Z': 'Y'        // I need to Win
-        },
-        'B': {              // Opponent plays Paper
-            'X': 'X',       // I need to Lose
-            'Y': 'Y',       // I need to Draw
-            'Z': 'Z'        // I need to Win
-        },
-        'C': {              // Opponent plays Scissors
-            'X': 'Y',       // I need to Lose
-            'Y': 'Z',       // I need to Draw
-            'Z': 'X'        // I need to Win
-        }
-    }
-
+    
     var scores = data.map( row => {
-        row = row.split(' ');
-        row[1] = plays[ row[0] ][ row[1] ];
-        return getScore( row.join(' ') );
+        row = calculatePlay( row );
+        return calculateScore( row );
     } );
     
     return scores.sum();
 }
 
-function getScore( row ){
+function calculateScore( row ){
     var scores = {
         'A X': (1 + 3), // Rock - Rock = Draw
         'A Y': (2 + 6), // Rock - Paper = Win
@@ -87,3 +71,27 @@ function getScore( row ){
 
 }
 
+function calculatePlay( row ){
+    var plays = {
+        'A': {              // Opponent plays Rock
+            'X': 'Z',       // I need to Lose
+            'Y': 'X',       // I need to Draw
+            'Z': 'Y'        // I need to Win
+        },
+        'B': {              // Opponent plays Paper
+            'X': 'X',       // I need to Lose
+            'Y': 'Y',       // I need to Draw
+            'Z': 'Z'        // I need to Win
+        },
+        'C': {              // Opponent plays Scissors
+            'X': 'Y',       // I need to Lose
+            'Y': 'Z',       // I need to Draw
+            'Z': 'X'        // I need to Win
+        }
+    };
+
+    row = row.split(' ');
+    row[1] = plays[ row[0] ][ row[1] ];
+
+    return row.join(' ');
+}
