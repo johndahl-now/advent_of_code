@@ -71,7 +71,7 @@ function part2( data ){
 }
 
 function getScore( row ){
-    var options = {
+    var scores = {
         'A X': (1 + 3), // Rock - Rock = Draw
         'A Y': (2 + 6), // Rock - Paper = Win
         'A Z': (3 + 0), // Rock - Scissors = Loss
@@ -83,7 +83,7 @@ function getScore( row ){
         'C Z': (3 + 3)  // Scissors - Scissors = Draw
     };
 
-    return options[ row ];
+    return scores[ row ];
 
 }
 
