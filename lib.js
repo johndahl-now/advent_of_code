@@ -13,8 +13,14 @@ if( !Array.prototype.newMethod ){
 exports.print = console.log;
 exports.table = console.table;
 
-exports.readFile = function(filename){
-    return fs.readFileSync(filename, 'utf-8');
+exports.readFile = function( filename, cleanFunction ){
+    var data = fs.readFileSync(filename, 'utf-8');
+    if( cleanFunction !== undefined ){
+        return cleanFunction( data );
+    }
+    else{
+        return data;
+    }
 }
 
 if( !Array.prototype.sum ){

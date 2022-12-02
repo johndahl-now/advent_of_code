@@ -5,26 +5,24 @@
 var lib = require( '../../lib' ),
     print = console.log,
     table = console.table,
-    sample = lib.readFile( 'input_sample.txt' ),
-    input = lib.readFile( 'input.txt' );
+    sample = lib.readFile( 'input_sample.txt', cleanData ),
+    input = lib.readFile( 'input.txt', cleanData );
     
 
 /*****************************************
  *  Main
  *****************************************/ 
 
-var result = {},
-    sample = cleanData( sample ),
-    input = cleanData( input );
+var result = {};
 
 result['Part 1'] = { 
     'Sample Input': part1( sample ), 
-    // 'Real Input': part1( input ) 
+    'Real Input': part1( input ) 
 };
-// result['Part 2'] = { 
-//     'Sample Input': part2( sample ), 
-//     'Real Input': part2( input ) 
-// };
+result['Part 2'] = { 
+    'Sample Input': part2( sample ), 
+    'Real Input': part2( input ) 
+};
 
 table( result );
 
@@ -34,18 +32,58 @@ table( result );
  *****************************************/ 
 
  function cleanData( input ){
-    return input.split('\n\n');
+    return input.split('\n');
 }
 
 function part1( data ){
-    var answer = 0;
+    
+    var scores = data.map( row => getScore( row ) )
 
-    return answer;
+    return scores.sum();
 }
 
 function part2( data ){
-    var answer = 0;
+    var plays = {
+        'A': {              // Opponent plays Rock
+            'X': 'Z',       // I need to Lose
+            'Y': 'X',       // I need to Draw
+            'Z': 'Y'        // I need to Win
+        },
+        'B': {              // Opponent plays Paper
+            'X': 'X',       // I need to Lose
+            'Y': 'Y',       // I need to Draw
+            'Z': 'Z'        // I need to Win
+        },
+        'C': {              // Opponent plays Scissors
+            'X': 'Y',       // I need to Lose
+            'Y': 'Z',       // I need to Draw
+            'Z': 'X'        // I need to Win
+        }
+    }
 
-    return answer;
+    var scores = data.map( row => {
+        row = row.split(' ');
+        row[1] = plays[ row[0] ][ row[1] ];
+        return getScore( row.join(' ') );
+    } );
+    
+    return scores.sum();
+}
+
+function getScore( row ){
+    var options = {
+        'A X': (1 + 3), // Rock - Rock = Draw
+        'A Y': (2 + 6), // Rock - Paper = Win
+        'A Z': (3 + 0), // Rock - Scissors = Loss
+        'B X': (1 + 0), // Paper - Rock = Loss
+        'B Y': (2 + 3), // Paper - Paper = Draw
+        'B Z': (3 + 6), // Paper - Scissors = Win
+        'C X': (1 + 6), // Scissors - Rock = Win
+        'C Y': (2 + 0), // Scissors - Paper = Loss
+        'C Z': (3 + 3)  // Scissors - Scissors = Draw
+    };
+
+    return options[ row ];
+
 }
 
