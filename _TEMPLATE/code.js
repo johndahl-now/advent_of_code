@@ -5,17 +5,15 @@
 var lib = require( '../../lib' ),
     print = console.log,
     table = console.table,
-    sample = lib.readFile( 'input_sample.txt' ),
-    input = lib.readFile( 'input.txt' );
+    sample = lib.readFile( 'input_sample.txt', cleanData ),
+    input = lib.readFile( 'input.txt', cleanData );
     
 
 /*****************************************
  *  Main
  *****************************************/ 
 
-var result = {},
-    sample = cleanData( sample ),
-    input = cleanData( input );
+var result = {};
 
 result['Part 1'] = { 
     'Sample Input': part1( sample ), 
@@ -34,7 +32,7 @@ table( result );
  *****************************************/ 
 
  function cleanData( input ){
-    return input.split('\n\n');
+    return input.split('\n');
 }
 
 function part1( data ){
