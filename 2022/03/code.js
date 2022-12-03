@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Puzzle URL: 
+// Puzzle URL: https://adventofcode.com/2022/day/3
 
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
@@ -13,10 +13,12 @@ var lib = require( '../../lib' ),
 
 var result = {
         "Part 1": {
+            'Sample Answer': 157,
             'Sample Input': part1( sample ), 
             'Real Input': part1( input ) 
         },
         "Part 2": {
+            'Sample Answer': 70,
             'Sample Input': part2( sample ), 
             'Real Input': part2( input ) 
         }
@@ -24,12 +26,12 @@ var result = {
 
 console.table( result );
 /* Result
-┌─────────┬──────────────┬────────────┐
-│ (index) │ Sample Input │ Real Input │
-├─────────┼──────────────┼────────────┤
-│ Part 1  │     157      │    8252    │
-│ Part 2  │      70      │    2828    │
-└─────────┴──────────────┴────────────┘
+┌─────────┬─────────────────┬──────────────┬────────────┐
+│ (index) │ Expected Sample │ Sample Input │ Real Input │
+├─────────┼─────────────────┼──────────────┼────────────┤
+│ Part 1  │       157       │     157      │    8252    │
+│ Part 2  │       70        │      70      │    2828    │
+└─────────┴─────────────────┴──────────────┴────────────┘
 */
 
 /*****************************************

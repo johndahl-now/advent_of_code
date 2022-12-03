@@ -13,17 +13,20 @@ var lib = require( '../../lib' ),
 
  var result = {
     "Part 1": {
+        'Sample Answer': 157,
         'Sample Input': part1( sample ), 
         // 'Real Input': part1( input ) 
     },
     "Part 2": {
+        'Sample Answer': 70,
         'Sample Input': part2( sample ), 
         // 'Real Input': part2( input ) 
     }
 };
 
 console.table( result );
-
+/* Result:
+*/
 
 /*****************************************
  *  FUNCTIONS
