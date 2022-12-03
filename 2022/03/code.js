@@ -47,9 +47,6 @@ function part1( data ){
 }
 
 function part2( data ){
-    data = data.map( row => {
-        return row[0].concat( row[1] ).deduplicate();
-    })
     data = groupElves( data );
     
     return data
@@ -69,7 +66,10 @@ function calculatePriority( letter ){
 function groupElves( data ){
     var groups = [];
 
-    data.forEach( ( row, idx ) => {
+    data = data.map( row => {
+        return row[0].concat( row[1] ).deduplicate();
+    })
+    .forEach( ( row, idx ) => {
         var groupNumber = parseInt( idx / 3, 10 );
         if( groups[ groupNumber ] == undefined ) groups[ groupNumber ] = [];
         groups[ groupNumber ].push( row );

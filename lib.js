@@ -64,6 +64,14 @@ if( !Array.prototype.intersection ){
     }
 }
 
+if( !Array.prototype.union ){
+    Array.prototype.union = function( arr ){
+        return this
+        .concat( arr )
+        .deduplicate();
+    }
+}
+
 if( !Array.prototype.deduplicate ){
     Array.prototype.deduplicate = function(){
         return this.filter( ( x, idx, arr ) => arr.indexOf( x ) == idx );
