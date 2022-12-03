@@ -58,6 +58,20 @@ if( !Array.prototype.numSort ){
     }
 }
 
+if( !Array.prototype.intersection ){
+    Array.prototype.intersection = function( arr ){
+        return this.filter( x => arr.indexOf( x ) > -1 );
+    }
+}
+
+if( !Array.prototype.deduplicate ){
+    Array.prototype.deduplicate = function(){
+        return this.filter( ( x, idx, arr ) => arr.indexOf( x ) == idx );
+    }
+}
+
+
+
 
 /*****************************************************
  * Deprecated functions. Use Array methods instead.
@@ -89,3 +103,4 @@ exports.arrProduct = function( arr ){
         return total *= value;
     }, 1 );
 }
+
