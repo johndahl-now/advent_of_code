@@ -11,15 +11,15 @@ var lib = require( '../../lib' ),
  *  Main
  *****************************************/ 
 
-var result = {};
-
-result['Part 1'] = { 
-    'Sample Input': part1( sample ), 
-    'Real Input': part1( input ) 
-};
-result['Part 2'] = { 
-    'Sample Input': part2( sample ), 
-    'Real Input': part2( input ) 
+var result = {
+        "Part 1": {
+            'Sample Input': part1( sample ), 
+            'Real Input': part1( input ) 
+        },
+        "Part 2": {
+            'Sample Input': part2( sample ), 
+            'Real Input': part2( input ) 
+        }
 };
 
 console.table( result );
@@ -40,7 +40,7 @@ function cleanData( data ){
 function part1( data ){
     
     return data
-    .map( row => row[0].intersection( row[1] ).deduplicate()[0] )
+    .map( row => row[0].intersection( row[1] ).deduplicate().toString() )
     .map( row => calculatePriority( row ) )
     .sum();
 
@@ -48,7 +48,7 @@ function part1( data ){
 
 function part2( data ){
     return groupElves( data )
-    .map( group => group[0].intersection( group[1] ).intersection( group[2] ))
+    .map( group => group[0].intersection( group[1] ).intersection( group[2] ).toString() )
     .map( row => calculatePriority( row[0] ) )
     .sum();
     

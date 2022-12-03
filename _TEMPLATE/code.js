@@ -11,15 +11,15 @@ var lib = require( '../../lib' ),
  *  Main
  *****************************************/ 
 
-var result = {};
-
-result['Part 1'] = { 
-    'Sample Input': part1( sample ), 
-    // 'Real Input': part1( input ) 
-};
-result['Part 2'] = { 
-    'Sample Input': part2( sample ), 
-//     'Real Input': part2( input ) 
+ var result = {
+    "Part 1": {
+        'Sample Input': part1( sample ), 
+        // 'Real Input': part1( input ) 
+    },
+    "Part 2": {
+        'Sample Input': part2( sample ), 
+        // 'Real Input': part2( input ) 
+    }
 };
 
 console.table( result );
