@@ -23,17 +23,31 @@ var result = {
 };
 
 console.table( result );
-
+/* Result
+┌─────────┬──────────────┬────────────┐
+│ (index) │ Sample Input │ Real Input │
+├─────────┼──────────────┼────────────┤
+│ Part 1  │     157      │    8252    │
+│ Part 2  │      70      │    2828    │
+└─────────┴──────────────┴────────────┘
+*/
 
 /*****************************************
  *  FUNCTIONS
  *****************************************/ 
 
 function cleanData( data ){
+    /* Given a file containing rows of data,
+     * split the rows into arrays, then
+     * split each row into 2 arrays of equal length.
+     */
     return data.split('\n')
     .map( row => {
         var l = row.length;
-        return [ row.slice( 0,l/2 ).split(''), row.slice( l/2 ).split('') ];
+        return [ 
+            row.slice( 0,l/2 ).split(''), 
+            row.slice( l/2 ).split('') 
+        ];
     });
 }
 
@@ -47,6 +61,7 @@ function part1( data ){
 }
 
 function part2( data ){
+
     return groupElves( data )
     .map( group => group[0].intersection( group[1] ).intersection( group[2] ).toString() )
     .map( row => calculatePriority( row[0] ) )
