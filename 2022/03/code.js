@@ -29,9 +29,9 @@ console.table( result );
  *  FUNCTIONS
  *****************************************/ 
 
- function cleanData( input ){
-    data = input.split('\n');
-    return data.map( row => {
+function cleanData( data ){
+    return data.split('\n')
+    .map( row => {
         var l = row.length;
         return [ row.slice( 0,l/2 ).split(''), row.slice( l/2 ).split('') ];
     });

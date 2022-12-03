@@ -29,19 +29,15 @@ console.table( result );
  *  FUNCTIONS
  *****************************************/ 
 
- function cleanData( input ){
-    return input.split('\n');
+function cleanData( data ){
+    return data.split('\n');
 }
 
 function part1( data ){
-    var answer = 0;
-
-    return answer;
+    return data;
 }
 
 function part2( data ){
-    var answer = 0;
-
-    return answer;
+    return data;
 }
 
