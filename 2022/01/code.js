@@ -3,8 +3,6 @@
 // Puzzle URL: 
 
 var lib = require( '../../lib' ),
-    print = lib.print,
-    table = lib.table,
     sample = lib.readFile( 'input_sample.txt' ),
     input = lib.readFile( 'input.txt' );
     
@@ -26,7 +24,7 @@ result['Part 2'] = {
     'Real Input': part2( input ) 
 };
 
-table( result );
+console.table( result );
 
 
 /*****************************************
