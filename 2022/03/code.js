@@ -47,9 +47,7 @@ function part1( data ){
 }
 
 function part2( data ){
-    data = groupElves( data );
-    
-    return data
+    return groupElves( data )
     .map( group => group[0].intersection( group[1] ).intersection( group[2] ))
     .map( row => calculatePriority( row[0] ) )
     .sum();
