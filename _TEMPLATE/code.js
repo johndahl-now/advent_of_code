@@ -13,14 +13,14 @@ var lib = require( '../../lib' ),
 
  var result = {
     "Part 1": {
-        'Sample Answer': 157,
-        'Sample Input': part1( sample ), 
-        // 'Real Input': part1( input ) 
+        'Sample Expected': 2,
+        'Sample Calculated': part1( sample ), 
+        'Real Calculated': part1( input ) 
     },
     "Part 2": {
-        'Sample Answer': 70,
-        'Sample Input': part2( sample ), 
-        // 'Real Input': part2( input ) 
+        'Sample Expected': 4,
+        'Sample Calculated': part2( sample ), 
+        'Real Calculated': part2( input ) 
     }
 };
 
