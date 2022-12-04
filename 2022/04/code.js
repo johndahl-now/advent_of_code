@@ -46,9 +46,7 @@ function cleanData( data ){
 function part1( data ){
 
     return data.filter( row => {
-        let [ elf1, elf2 ] = row;
-        let [ min1, max1 ] = elf1;
-        let [ min2, max2 ] = elf2;
+        let [ [ min1, max1 ], [ min2, max2 ] ] = row
 
         return ( min1 >= min2 && max1 <= max2 ) || ( min2 >= min1 && max2 <= max1 );
 
@@ -58,9 +56,7 @@ function part1( data ){
 
 function part2( data ){
     return data.filter( row => {
-        let [ elf1, elf2 ] = row;
-        let [ min1, max1 ] = elf1;
-        let [ min2, max2 ] = elf2;
+        let [ [ min1, max1 ], [ min2, max2 ] ] = row
 
         return ( min1 <= min2 && max1 >= min2 ) || ( min2 <= min1 && max2 >= min1 );
 
