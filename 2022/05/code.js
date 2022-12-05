@@ -39,11 +39,32 @@ console.table( result );
  *****************************************/ 
 
 function cleanData( data ){
+    /* Convert input data from:
+     *
+     *          [D]    
+     *      [N] [C]    
+     *      [Z] [M] [P]
+     *       1   2   3 
+     *
+     *      move 1 from 2 to 1
+     *      move 3 from 1 to 3
+     *      move 2 from 2 to 1
+     *      move 1 from 1 to 2
+     *
+     * to:
+     *
+     *      [
+     *         [["Z","N"],["M","C","D"],["P"]],
+     *         [ [ 1, 2, 1 ], [ 3, 1, 3 ], [ 2, 2, 1 ], [ 1, 1, 2 ] ]
+     *      ]
+     *
+     */
+
     let [ stacks, moves ] = data.split('\n\n');
 
     stacks = stacks.split( '\n' )
-    .map( row => row.split('') )
-    .transpose( stacks )
+    .map( stack => stack.split('') )
+    .transpose()
     .filter( stack => stack.slice(-1).join('').match( /\d/ ) )
     .map( stack => stack.reverse().slice(1).filter( crate => crate !== ' ' ) );
 
@@ -71,6 +92,7 @@ function part2( data ){
 }
 
 function moveCrate( move, stacks ){
+    /* Move multiple crates, one-at-a-time. */
     let [ count, from, to ] = move;
     from--;
     to--;
@@ -81,6 +103,7 @@ function moveCrate( move, stacks ){
 }
 
 function moveCrates( move, stacks ){
+    /* Move multiple crates, all at once. */
     let [ count, from, to ] = move;
     from--;
     to--;
