@@ -13,19 +13,25 @@ var lib = require( '../../lib' ),
 
  var result = {
     "Part 1": {
-        'Sample Expected': 2,
+        'Sample Expected': 'CMZ',
         'Sample Calculated': part1( sample ), 
-        // 'Real Calculated': part1( input ) 
+        'Real Calculated': part1( input ) 
     },
     "Part 2": {
-        'Sample Expected': 4,
+        'Sample Expected': 'MCD',
         'Sample Calculated': part2( sample ), 
-        // 'Real Calculated': part2( input ) 
+        'Real Calculated': part2( input ) 
     }
 };
 
 console.table( result );
 /* Result:
+┌─────────┬─────────────────┬───────────────────┬─────────────────┐
+│ (index) │ Sample Expected │ Sample Calculated │ Real Calculated │
+├─────────┼─────────────────┼───────────────────┼─────────────────┤
+│ Part 1  │      'CMZ'      │       'CMZ'       │   'BSDMQFLSP'   │
+│ Part 2  │      'MCD'      │       'MCD'       │   'PGSQBFLDP'   │
+└─────────┴─────────────────┴───────────────────┴─────────────────┘
 */
 
 /*****************************************
@@ -33,14 +39,57 @@ console.table( result );
  *****************************************/ 
 
 function cleanData( data ){
-    return data.split('\n');
+    let [ stacks, moves ] = data.split('\n\n');
+
+    stacks = stacks.split( '\n' )
+    .map( row => row.split('') );
+
+    stacks = transpose( stacks )
+    .filter( stack => stack.slice(-1).join('').match( /\d/ ) )
+    .map( stack => stack.reverse().slice(1).filter( crate => crate !== ' ' ) );
+
+    moves = moves.split('\n')
+    .map( move => move.match( /\d+/g ).map( x => Number( x ) ) );
+
+    return [ JSON.stringify( stacks ), moves ];
 }
 
 function part1( data ){
-    return data;
+    var stacks = JSON.parse( data[0] );
+    const moves = data[1];
+    moves.forEach( move => moveCrate( move, stacks ) );
+    stacks = stacks.map( stack => stack.slice(-1) ).join('');
+
+    return stacks;
 }
 
 function part2( data ){
-    return data;
+    var stacks = JSON.parse( data[0] );
+    const moves = data[1];
+    moves.forEach( move => moveCrates( move, stacks ) );
+    stacks = stacks.map( stack => stack.slice(-1) ).join('');
+    return stacks;
 }
 
+function transpose(matrix) {
+    return matrix.reduce( ( prev, next ) => next.map( (item, i) => ( prev[i] || [] ).concat( next[i] ) ), [] );
+}
+
+function moveCrate( move, stacks ){
+    let [ count, from, to ] = move;
+    from--;
+    to--;
+    for( var i=0; i<count; i++ ){
+        let crate = stacks[ from ].pop();
+        if( crate ) stacks[ to ].push( crate );
+    }
+}
+
+function moveCrates( move, stacks ){
+    let [ count, from, to ] = move;
+    from--;
+    to--;
+    let cratesToMove = stacks[ from ].slice( -count );
+    stacks[ from ].length = stacks[ from ].length - count;
+    stacks[ to ] = stacks[ to ].concat( cratesToMove );
+}
