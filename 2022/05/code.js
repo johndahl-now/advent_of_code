@@ -48,7 +48,7 @@ function cleanData( data ){
     .map( stack => stack.reverse().slice(1).filter( crate => crate !== ' ' ) );
 
     moves = moves.split('\n')
-    .map( move => move.match( /\d+/g ).map( x => Number( x ) ) );
+    .map( move => move.match( /\d+/g ).map( Number ) );
 
     return [ JSON.stringify( stacks ), moves ];
 }
