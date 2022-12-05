@@ -42,9 +42,8 @@ function cleanData( data ){
     let [ stacks, moves ] = data.split('\n\n');
 
     stacks = stacks.split( '\n' )
-    .map( row => row.split('') );
-
-    stacks = transpose( stacks )
+    .map( row => row.split('') )
+    .transpose( stacks )
     .filter( stack => stack.slice(-1).join('').match( /\d/ ) )
     .map( stack => stack.reverse().slice(1).filter( crate => crate !== ' ' ) );
 
@@ -69,10 +68,6 @@ function part2( data ){
     moves.forEach( move => moveCrates( move, stacks ) );
     stacks = stacks.map( stack => stack.slice(-1) ).join('');
     return stacks;
-}
-
-function transpose(matrix) {
-    return matrix.reduce( ( prev, next ) => next.map( (item, i) => ( prev[i] || [] ).concat( next[i] ) ), [] );
 }
 
 function moveCrate( move, stacks ){

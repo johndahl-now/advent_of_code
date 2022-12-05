@@ -115,6 +115,17 @@ if( !Array.prototype.deduplicate ){
     }
 }
 
+if( !Array.prototype.transpose ){
+    Array.prototype.transpose = function(){
+        /* Given an array of values,
+         * identify the values that appear more than once.
+         * Retain the first occurrence and remove the rest.
+         * return a new array.
+         */
+        return this.reduce( ( prev, next ) => next.map( ( item, i ) => ( prev[ i ] || [] ).concat( next[ i ] ) ), [] );
+    }
+}
+
 
 
 
