@@ -69,9 +69,8 @@ function findMarker( signal, markerLength ){
     for( let i=markerLength; i<signal.length; i++ ){
         packet = signal.slice( 0, i );
         marker = packet.slice( -markerLength );
-        if( marker.length == marker.split('').deduplicate().length ){
-            break;
-        }
+        if( marker.length == marker.split('').deduplicate().length ) break;
+        // Note: Could have used a set: if( marker.length == new Set( marker ).size ) break;
     }
     return packet.length;
 }
