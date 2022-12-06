@@ -115,6 +115,17 @@ if( !Array.prototype.deduplicate ){
     }
 }
 
+if( !Array.prototype.transpose ){
+    Array.prototype.transpose = function(){
+        /* Given an array of arrays,
+         * transpose the structure... 
+         * swap the veritical and horizontal axis.
+         * Return a new array.
+         */
+        return this.reduce( ( prev, next ) => next.map( ( item, i ) => ( prev[ i ] || [] ).concat( next[ i ] ) ), [] );
+    }
+}
+
 
 
 
