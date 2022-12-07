@@ -45,16 +45,73 @@ function cleanData( data ){
 function part1( data ){
     var tree = buildTree( data );
     
-    return calculateAnswer1( tree )
+    var answer = 0,
+        limit = 100000;
+
+    var paths = Object.keys( tree );
+    paths.forEach( path => {
+        var groupTotal = 0;
+        
+        paths.filter( path1 => path1.startsWith( path ) )
+        .forEach( path2 => groupTotal += tree[ path2 ] );
+
+        if( groupTotal < limit ){
+            answer += groupTotal;
+        }
+        
+    } );
+
+    return answer;
 }
 
 function part2( data ){
     var tree = buildTree( data );
    
-    return calculateAnswer2( tree );
+    var freeSpace,
+        diskSize = 70000000,
+        spaceNeeded = 30000000;
+
+    var directorySizes = [];
+    var paths = Object.keys( tree );
+
+    paths.forEach( path => {
+        var groupTotal = 0;
+        
+        paths.filter( path1 => path1.startsWith( path ) )
+        .forEach( path2 => groupTotal += tree[ path2 ] );
+
+        directorySizes.push( [ path, groupTotal ] );
+        
+    } );
+
+    directorySizes.sortByColumn( 1 );
+
+    diskUsage = directorySizes.slice(-1)[0][1];
+    freeSpace = diskSize - diskUsage;
+    spaceNeeded -= freeSpace;
+
+    directorySizes = directorySizes.filter( dir => dir[1] >= spaceNeeded )[0];
+ 
+    return directorySizes[1];
+}
+
+function addFile( tree, path, size ){
+    /* Given a directory tree object, file path, and file size,
+     * add the file size to the directory size in the tree object.
+     */
+    path = path.join('/');
+
+    if( tree[ path ] == undefined ){
+        tree[ path ] = 0;
+    }
+
+    tree[ path ] += parseInt( size );
 }
 
 function buildTree( data ){
+    /* Given a set of input data,
+     * build a directory tree object to story directory sizes.
+     */
     var dir,
         tree = { 'root': 0 },
         pwd = [];
@@ -100,61 +157,3 @@ function buildTree( data ){
     return tree;
 }
 
-function addFile( tree, path, size ){
-    path = path.join('/');
-
-    if( tree[ path ] == undefined ){
-        tree[ path ] = 0;
-    }
-
-    tree[ path ] += parseInt( size );
-}
-
-function calculateAnswer1( tree ){
-    var answer = 0,
-        limit = 100000;
-
-    var paths = Object.keys( tree );
-    paths.forEach( path => {
-        var groupTotal = 0;
-        
-        paths.filter( path1 => path1.startsWith( path ) )
-        .forEach( path2 => groupTotal += tree[ path2 ] );
-
-        if( groupTotal < limit ){
-            answer += groupTotal;
-        }
-        
-    })
-
-    return answer;
-}
-
-function calculateAnswer2( tree ){
-    var freeSpace,
-        diskSize = 70000000,
-        spaceNeeded = 30000000;
-
-    var directorySizes = [];
-    var paths = Object.keys( tree );
-
-    paths.forEach( path => {
-        var groupTotal = 0;
-        
-        paths.filter( path1 => path1.startsWith( path ) )
-        .forEach( path2 => groupTotal += tree[ path2 ] );
-
-        directorySizes.push( [ path, groupTotal ] );
-        
-    } );
-
-    directorySizes.sortByColumn( 1 );
-
-    diskUsage = directorySizes.slice(-1)[0][1];
-    freeSpace = diskSize - diskUsage;
-    spaceNeeded -= freeSpace;
-
-    directorySizes = directorySizes.filter( dir => dir[1] >= spaceNeeded )[0];
- 
-    return directorySizes[1];
-}
