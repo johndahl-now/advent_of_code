@@ -126,7 +126,22 @@ if( !Array.prototype.transpose ){
     }
 }
 
+if( !Array.prototype.sortByColumn ){
+    Array.prototype.sortByColumn = function( column, descending ){
+        /* Given a matrix (an array of arrays), a zero-based column number, and 
+         * an optional boolean flag,
+         * sort the matrix by the column provided in ascending order.
+         * If the descending flag is set, sort the matrix in descending order.
+         * Return a new array.
+         */
 
+        return this.sort( ( a, b ) => {
+            if( a[ column ] === b[ column ] ) return 0;
+            if( descending ) return ( a[ column ] > b[ column ] ) ? -1 : 1;
+            return ( a[ column ] < b[ column ] ) ? -1 : 1;
+        }, 0, column, descending );
+    }
+}
 
 
 /*****************************************************
