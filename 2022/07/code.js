@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Puzzle URL: https://adventofcode.com/2022/day/
+// Puzzle URL: https://adventofcode.com/2022/day/7
 
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
@@ -13,7 +13,7 @@ var lib = require( '../../lib' ),
 
  var result = {
     "Part 1": {
-        'Sample Expected': 'N/A',
+        'Sample Expected': 95437,
         'Sample Calculated': part1( sample ), 
         // 'Real Calculated': part1( input ) 
     },
