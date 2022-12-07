@@ -61,7 +61,6 @@ function buildTree( data ){
 
     data.forEach( line => {
         line = line.split(' ');
-        // console.log( line );
 
         if( line[0].match( /^\d+/ ) ){          // Add the file size to the current directory: tree[ pwd ]
             addFile( tree, pwd, line[0] );
@@ -149,7 +148,7 @@ function calculateAnswer2( tree ){
         
     } );
 
-    directorySizes.sort( compareSecondColumn );
+    directorySizes.sortByColumn( 1 );
 
     diskUsage = directorySizes.slice(-1)[0][1];
     freeSpace = diskSize - diskUsage;
@@ -158,13 +157,4 @@ function calculateAnswer2( tree ){
     directorySizes = directorySizes.filter( dir => dir[1] >= spaceNeeded )[0];
  
     return directorySizes[1];
-}
-
-function compareSecondColumn( a, b ) {
-    if( a[1] === b[1] ){
-        return 0;
-    }
-    else{
-        return ( a[1] < b[1] ) ? -1 : 1;
-    }
 }
