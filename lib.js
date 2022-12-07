@@ -132,7 +132,7 @@ if( !Array.prototype.sortByColumn ){
          * an optional boolean flag,
          * sort the matrix by the column provided in ascending order.
          * If the descending flag is set, sort the matrix in descending order.
-         * Return a new array.
+         * NOTE: The original array is mutated in place.
          */
 
         return this.sort( ( a, b ) => {
