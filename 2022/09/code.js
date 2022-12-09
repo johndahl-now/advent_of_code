@@ -192,7 +192,7 @@ function part2( data ){
         if( y > 0 ) map[ "U" ]();
         if( y < 0 ) map[ "D" ]();
     
-        if( knot1 == 9 ){
+        if( knot1 == Object.keys( knots ).length - 1 ){
             markTrail( knot1 );
         }
         else{
