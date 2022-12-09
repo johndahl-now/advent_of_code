@@ -143,6 +143,23 @@ if( !Array.prototype.sortByColumn ){
     }
 }
 
+if( !Array.prototype.max ){
+    Array.prototype.max = function(){
+        /* Given an array of numbers,
+         * return the largest number.
+         */
+        return this.numSort( 'desc' )[0];
+    }
+}
+
+if( !Array.prototype.min ){
+    Array.prototype.min = function(){
+        /* Given an array of numbers,
+         * return the largest number.
+         */
+        return this.numSort()[0];
+    }
+}
 
 /*****************************************************
  * Deprecated functions. Use Array methods instead.
