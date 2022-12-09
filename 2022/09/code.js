@@ -49,17 +49,35 @@ function cleanData( data ){
 }
 
 function part1( data ){
-    let head = [ 0, 0 ];
-    let tail = [ 0, 0 ];
-    let newTrail = {"0,0": 1};
+    let knots = {
+        0: [0,0],
+        1: [0,0]
+    };
+    let trail = {"0,0": 1};
 
     data.forEach( move => {
-        moveHead( head, move );
+        moveHead( knots[0] , move );
     } );
+    
+    return Object.values( trail ).length;
 
-    return Object.values( newTrail ).length;
+    function calculateDistance( knot1, knot2 ){
+        // calculate the distance between knot1 and knot2
+        // a2 + b2 = c2
+        let [ x1, y1 ] = knots[ knot1 ];
+        let [ x2, y2 ] = knots[ knot2 ];
+        let x = x1 - x2;
+        let y = y1 - y2;
+        
+        return Math.sqrt( ( x * x ) + ( y * y ) );
+    }
+    
+    function markTrail( knot ){
+        trail[ knots[ knot ] ] = 1;
+    }
 
     function moveHead( head, move ){
+        // Move the head knot based on the "move" instruction given
         let distance;
         let [dir, dis] = move;
         
@@ -69,52 +87,40 @@ function part1( data ){
             "U": () => head[1]++,
             "D": () => head[1]--
         };
-
+    
         while( dis-- > 0 ){
             map[ dir ]();
-            distance = calculateDistance( head, tail );
-            if( distance >= 2 ) moveTail( tail, head );
+            distance = calculateDistance( 0, 1 );
+            if( distance >= 2 ) moveKnot( 1, 0 );
         }
     }
-
-    function moveTail( tail, head ){
-        let [ hx, hy ] = head;
-        let [ tx, ty ] = tail;
-        let x = hx - tx;
-        let y = hy - ty;
+    
+    function moveKnot( knot1, knot2 ){
+        // Move knot1 towards knot2
+        let [ x1, y1 ] = knots[ knot1 ];
+        let [ x2, y2 ] = knots[ knot2 ];
+        let x = x2 - x1;
+        let y = y2 - y1;
         
         let map = {
-            "R": () => tail[0]++,
-            "L": () => tail[0]--,
-            "U": () => tail[1]++,
-            "D": () => tail[1]--
+            "R": () => knots[ knot1 ][0]++,
+            "L": () => knots[ knot1 ][0]--,
+            "U": () => knots[ knot1 ][1]++,
+            "D": () => knots[ knot1 ][1]--
         };
         
         if( x > 0 ) map[ "R" ]();
         if( x < 0 ) map[ "L" ]();
         if( y > 0 ) map[ "U" ]();
         if( y < 0 ) map[ "D" ]();
-
-        markTrail( tail );
-
-    }
-
-    function markTrail( coord ){
-        // let [x, y] = coord;
-        // if( !trail[x] ) trail[x] = [0];
-        // if( !trail[x][y] ) trail[x][y] = 1;
-        // else trail[x][y]++;
-
-        newTrail[ coord ] = 1;
-    }
-
-    function calculateDistance( head, tail ){
-        let [ hx, hy ] = head;
-        let [ tx, ty ] = tail;
-        let x = hx - tx;
-        let y = hy - ty;
-        
-        return Math.sqrt( ( x * x ) + ( y * y ) );
+    
+        if( knot1 == Object.keys( knots ).length - 1 ){
+            markTrail( knot1 );
+        }
+        else{
+            distance = calculateDistance( knot1, knot1 + 1 );
+            if( distance >= 2 ) moveKnot( knot1 + 1, knot1 );
+        }
     }
 }
 
