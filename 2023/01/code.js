@@ -16,12 +16,12 @@ var lib = require( '../../lib' ),
     "Part 1": {
         'Sample Expected': '142',
         'Sample Calculated': part1( sample ), 
-        // 'Real Calculated': part1( input ) 
+        'Real Calculated': part1( input ) 
     },
     "Part 2": {
         'Sample Expected': '281',
         'Sample Calculated': part2( sample2 ), 
-        // 'Real Calculated': part2( input ) 
+        'Real Calculated': part2( input ) 
     }
 };
 
@@ -30,8 +30,8 @@ console.table( result );
 ┌─────────┬─────────────────┬───────────────────┬─────────────────┐
 │ (index) │ Sample Expected │ Sample Calculated │ Real Calculated │
 ├─────────┼─────────────────┼───────────────────┼─────────────────┤
-│ Part 1  │ '142'           │ '142'             │ '54940'         │
-│ Part 2  │ '281'           │ '281'             │ '54193'         │
+│ Part 1  │      '142'      │       '142'       │     '54940'     │
+│ Part 2  │      '281'      │       '281'       │     '54208'     │
 └─────────┴─────────────────┴───────────────────┴─────────────────┘
 */
 
@@ -45,17 +45,24 @@ function cleanData( data ){
 
 function part1( data ){
     data = data.map( ( row ) => {
+        /* Given a row of input,
+         * extract the digits,
+         * combine the first and last digets,
+         * parse and return a two-digit number.
+         */
 
-        // Find the digits in the string of data
         row = row.match( /\d/g );
-        // console.log( 'Match: ' + row + ' - ' + row.length );
-
-        // Combine the first and last digit and return the int
         row = [ row[ 0 ], row.slice( -1 ) ];
+
         return parseInt( row.join( '' ) );
+
     } )
     .reduce( ( total, value ) => { 
+        /* Given an array of 2-digit numbers,
+         * reduce the array to a total sum integer.
+         */
         return total + value; 
+
     }, 0 );
 
     return JSON.stringify( data );
@@ -75,17 +82,19 @@ function part2( data ){
     };
 
     data = data.map( ( row ) => {
-
-        console.log( '\nOriginal Row: ' + row );
+        /* Given a row of data,
+         * convert the spelled-out numbers to digits,
+         */
 
         // Get the string numbers found in position order
         var digits = [];
         Object.keys( numMap ).forEach( ( num, idx ) => {
-            var position = row.search( num );
-            position >= 0 && ( digits[ position ] = num );
-        } );
+            var firstPosition = row.search( num );
+            var lastPosition = row.lastIndexOf( num );
 
-        console.log( 'String numbers found by position: ' + digits );
+            firstPosition >= 0 && ( digits[ firstPosition ] = num );
+            firstPosition !== lastPosition && ( digits[ lastPosition ] = num );
+        } );
 
         // Convert the string numbers into digits
         digits.forEach( ( dig, idx ) => {
@@ -96,12 +105,9 @@ function part2( data ){
             }
         } );
 
-        console.log( 'Converted Row: ' + row );
-
         return row;
     } );
 
-    // console.log( data );
     data = part1( data );
 
     return data;
