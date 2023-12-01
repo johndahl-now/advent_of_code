@@ -1,5 +1,5 @@
 # Introduction
-URL: https://adventofcode.com/2023/day/01
+URL: https://adventofcode.com/2023/day/1
 ┌─────────┬─────────────────┬───────────────────┬─────────────────┐
 │ (index) │ Sample Expected │ Sample Calculated │ Real Calculated │
 ├─────────┼─────────────────┼───────────────────┼─────────────────┤

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Puzzle URL: https://adventofcode.com/2023/day/
+// Puzzle URL: https://adventofcode.com/2023/day/1
 
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
