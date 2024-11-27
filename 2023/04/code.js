@@ -72,32 +72,81 @@ function part2( data ){
     // Add a point for the first match and double the points for each successive match in the game.
     // For each point that a card earns, copy that number of successive cards.
 
-    data.forEach( ( card ) => {
-        var copies = [];
-        var running_total = 0;
-        var [ card_id, numbers ] = [ ...card.split('').splice( 5 ).join('').split( ': ' ) ];
-        var [ winning_numbers, my_numbers ] = [ ...numbers.split( ' | ' ) ];
-        console.log( 'Processing card ' + card_id );
+    var cards = data.reduce( ( obj, card ) => {
+        /* Reformat the cards into a JSON object.
+         */
+
+        var [ id, undefined, undefined, winning_numbers, undefined, undefined, my_numbers ] = card.slice( 5 ).split( /(: )|( \| )/g );
+        my_numbers = my_numbers
+            .split( /\s+/g )
+            .map( number => parseInt( number ) );
+        winning_numbers = winning_numbers
+            .split( /\s+/g )
+            .map( number => parseInt( number ) )
+            .filter( number => number > 0 );
+        var win_count = count_winning_numbers( my_numbers, winning_numbers );
+        
+        obj[ id ] = {
+          id: parseInt( id ),
+          my_numbers: my_numbers,
+          winning_numbers: winning_numbers,
+          win_count: win_count,
+          multiplier: 1
+        };
+        
+        return obj;
+
+    }, {});
+
+    // Add the extra cards that were won
+    var keys = Object.keys( cards );
+    keys.forEach( ( card, index ) => {
+        var card = cards[ card ];
+        var new_cards = keys.slice( index + 1, index + 1 + card.win_count );
+        new_cards.forEach( new_card => {
+            cards[ new_card ].multiplier++;
+        } );
+    } );
+
+    console.table( cards );    
+
+    // data.forEach( ( card ) => {
+    //     var copies = [];
+    //     var [ card_id, numbers ] = [ ...card.split('').splice( 5 ).join('').split( ': ' ) ];
+    //     var [ winning_numbers, my_numbers ] = [ ...numbers.split( ' | ' ) ];
     
-        winning_numbers = winning_numbers.split( /\s+/ ).map( number => parseInt( number ) );
-        my_numbers = my_numbers.split( /\s+/ ).map( number => parseInt( number ) );
+    //     my_numbers = my_numbers.split( /\s+/ ).map( number => parseInt( number ) );
+    //     winning_numbers = winning_numbers.split( /\s+/ ).map( number => parseInt( number ) );
+
+    //     // // Determine how many winning numbers:
+    //     // my_numbers.forEach( my_number => {
+    //     //     if( winning_numbers.indexOf( my_number ) > -1) ++running_total;
+    //     // } );
+
+    //     // Copy the successive cards
+    //     copies = data.slice( card_id, card_id + running_total - 1 );
+    //     console.log( 'Winning number count: ' + running_total +
+    //         '\nCopies: ' + copies
+    //      );
+        
+
+    //     copies.forEach( copy => data.push( copy ) );
+        
+    // } );
+
+    function count_winning_numbers( my_numbers, winning_numbers ){
+        var count = 0;
+        // winning_numbers = winning_numbers.split( /\s+/ ).map( number => parseInt( number ) );
+        // my_numbers = my_numbers.split( /\s+/ ).map( number => parseInt( number ) );
 
         // Determine how many winning numbers:
         my_numbers.forEach( my_number => {
-            if( winning_numbers.indexOf( my_number ) > -1) ++running_total;
-        } );
+            if( winning_numbers.indexOf( my_number ) > -1) ++count;
+        }, 0 );
 
-        // Copy the successive cards
-        copies = data.slice( card_id, card_id + running_total - 1 );
-        console.log( 'Winning number count: ' + running_total +
-            '\nCopies: ' + copies
-         );
-        
+        return count;
+    }
 
-        copies.forEach( copy => data.push( copy ) );
-        
-    } )
-
-    return data.length;
+    return cards;
 }
 
