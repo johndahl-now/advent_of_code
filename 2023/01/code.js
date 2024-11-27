@@ -84,6 +84,7 @@ function part2( data ){
     data = data.map( ( row ) => {
         /* Given a row of data,
          * convert the spelled-out numbers to digits,
+         * then pass the result into the part1 code.
          */
 
         // Get the string numbers found in position order
