@@ -43,8 +43,7 @@ function cleanData( data ){
      * Return the pair of sorted arrays.
      */
 
-    var result,
-        l1 = [],
+    var l1 = [],
         l2 = [];
 
     data = data
