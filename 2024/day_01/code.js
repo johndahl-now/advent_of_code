@@ -43,22 +43,22 @@ function cleanData( data ){
      * Return the pair of sorted arrays.
      */
 
-    var l1 = [],
-        l2 = [];
+    var list1 = [],
+        list2 = [];
 
     data = data
         .split('\n')
         .map( row => row.split( "   " ) );
 
     data.forEach( row => {
-        l1.push( row[0] );
-        l2.push( row[1] );
+        list1.push( row[0] );
+        list2.push( row[1] );
     } );
 
-    l1 = l1.numSort();
-    l2 = l2.numSort();
+    list1 = list1.numSort();
+    list2 = list2.numSort();
 
-    return [ l1, l2 ];
+    return [ list1, list2 ];
     
 }
 
@@ -68,12 +68,12 @@ function part1( data ){
      * Total the differences and return the number.
      */
     var result,
-        l1 = data[0],
-        l2 = data[1],
+    list1 = data[0],
+        list2 = data[1],
         distances = [];
 
-    l1.forEach( ( loc, idx ) => {
-        var distance = Math.abs( loc - l2[ idx ] );
+        list1.forEach( ( loc, idx ) => {
+        var distance = Math.abs( loc - list2[ idx ] );
         distances.push( distance );
     } );
 
@@ -89,13 +89,13 @@ function part2( data ){
      */
 
     var result,
-        l1 = data[0],
-        l2 = data[1].join(','),
+        list1 = data[0],
+        list2 = data[1].join(','),
         scores = [];
 
-    l1.forEach( ( loc, idx ) => {
+    list1.forEach( ( loc, idx ) => {
         var re = new RegExp( loc, 'g' );
-        var apperances = l2.match( re );
+        var apperances = list2.match( re );
         try{
             scores.push( loc * apperances.length );
         }
