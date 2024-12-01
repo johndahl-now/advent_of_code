@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// Puzzle URL: https://adventofcode.com/2023/day/
-
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
     input = lib.readFile( 'input.txt', cleanData );

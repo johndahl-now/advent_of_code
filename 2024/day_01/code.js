@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-// Puzzle URL: https://adventofcode.com/2023/day/
-
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
     input = lib.readFile( 'input.txt', cleanData );
@@ -26,6 +24,12 @@ var lib = require( '../../lib' ),
 
 console.table( result );
 /* Result:
+    ┌─────────┬─────────────────┬───────────────────┬─────────────────┐
+    │ (index) │ Sample Expected │ Sample Calculated │ Real Calculated │
+    ├─────────┼─────────────────┼───────────────────┼─────────────────┤
+    │ Part 1  │ '11'            │ 11                │ 1320851         │
+    │ Part 2  │ '31'            │ 31                │ 26859182        │
+    └─────────┴─────────────────┴───────────────────┴─────────────────┘
 */
 
 /*****************************************
