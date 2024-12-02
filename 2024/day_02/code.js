@@ -44,9 +44,9 @@ function cleanData( data ){
     */
 
    return data
-    .split('\n')
-    .map( row => row.split( " " ) )
-    .map( row => row.parseInt() );
+    .split('\n')                        // Split the file into an array of rows.
+    .map( row => row.split( " " ) )     // Split each row into an array of string values.
+    .map( row => row.parseInt() );      // Convert each string value into an Integer.
 
 }
 
@@ -57,38 +57,8 @@ function part1( data ){
      *    2. the difference between any two values is between 1 and 3 inclusively.
      * Return the number of safe reports.
      */
-    var safe_reports = 0;
 
-    // Filter out reports that are not fully ascending or descending.
-    data = data.filter( report => {
-        
-        // Make sorted copies of the report.
-        var sortedAsc = report.slice(0).numSort(),
-            sortedDesc = report.slice(0).numSort( 'desc' );
-
-        // Convert reports to strings
-        sortedAsc = sortedAsc.join(',');
-        sortedDesc = sortedDesc.join(',');
-        report = report.join(',');
-
-        return ( report === sortedAsc ) || ( report === sortedDesc );
-
-    } );
-
-    // Filter out reports with a variance less than 1 or greater than 3
-    data = data.filter( report => {
-        var variance;
-
-        for( var i=1; i<report.length; i++ ){
-        
-            variance = Math.abs( report[ i ] - report[ i-1 ] );
-        
-            if( variance == 0 || variance > 3 ) return false;
-        
-        }
-
-        return true;
-    } );
+    data = data.filter( report => isReportSafe( report ) );
 
     return data.length;
 
