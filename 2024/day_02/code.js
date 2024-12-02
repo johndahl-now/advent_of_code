@@ -75,17 +75,13 @@ function part2( data ){
 
     data = data.filter( report => {
 
-        var safeReport = isReportSafe( report );
-        if( safeReport ) return true;
+        if( isReportSafe( report ) ) return true;
 
-        // Determine if removing a single level will make the report safe.
-        var reducedReport;
         for( var i=0; i<report.length; i++ ){
-            reducedReport = removeLevel( report, i );
+            const reducedReport = removeLevel( report, i );
             if( isReportSafe( reducedReport ) ) return true;
         }
 
-        // The report is not safe, either unmodified or by removing a single level.
         return false;
 
     } );
@@ -94,7 +90,6 @@ function part2( data ){
 }
 
 function isReportSafe( report ){
-    var variance
 
     // Make sorted copies of the report.
     var sortedAsc = report.slice(0).numSort(),
@@ -108,7 +103,7 @@ function isReportSafe( report ){
 
     for( var i=1; i<report.length; i++ ){
 
-        variance = Math.abs( report[ i ] - report[ i-1 ] );
+        const variance = Math.abs( report[ i ] - report[ i-1 ] );
 
         if( variance == 0 || variance > 3 ) return false;
 
