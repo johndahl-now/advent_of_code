@@ -20,19 +20,25 @@ var lib = require( '../../lib' ),
 
  var result = {
     "Part 1": {
-        'Sample Expected': 'N/A',
-        'Sample Calculated': part1( sample ), 
-        // 'Real Calculated': part1( input ) 
+        'Sample Expected': 161,
+        'Sample Calculated': part1( cleanData( "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))" ) ), 
+        'Real Calculated': part1( input ) 
     },
-    // "Part 2": {
-    //     'Sample Expected': 'N/A',
-    //     'Sample Calculated': part2( sample ), 
-    //     // 'Real Calculated': part2( input ) 
-    // }
+    "Part 2": {
+        'Sample Expected': 48,
+        'Sample Calculated': part2( cleanData( "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))" ) ), 
+        'Real Calculated': part2( input ) 
+    }
 };
 
 console.table( result );
 /* Result:
+┌─────────┬─────────────────┬───────────────────┬─────────────────┐
+│ (index) │ Sample Expected │ Sample Calculated │ Real Calculated │
+├─────────┼─────────────────┼───────────────────┼─────────────────┤
+│ Part 1  │ 161             │ 161               │ 173785482       │
+│ Part 2  │ 48              │ 48                │ 83158140        │
+└─────────┴─────────────────┴───────────────────┴─────────────────┘
 */
 
 /*****************************************
@@ -40,14 +46,40 @@ console.table( result );
  *****************************************/ 
 
 function cleanData( data ){
-    return data.split('\n');
+    return data.match( /(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))/g );
 }
 
 function part1( data ){
-    return data;
+    let result = 0;
+
+    data.forEach( rec => {
+        if( rec.startsWith( 'mul' ) )
+            result += eval( rec );
+    } );
+
+    return result;
 }
 
 function part2( data ){
-    return data;
+    let result = 0,
+        enabled = true;
+
+    data.forEach( rec => {
+        if( rec.startsWith( "don't" ) ){
+            enabled = false;
+        }
+        else if( rec.startsWith( "do" ) ){
+            enabled = true;
+        }
+        else if( rec.startsWith( 'mul' ) && enabled == true ){
+            result += eval( rec );
+        }
+            
+    } );
+
+    return result;
 }
 
+function mul( a,b ){
+    return a * b;
+}
