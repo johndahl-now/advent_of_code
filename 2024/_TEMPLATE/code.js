@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
+/**************************
+ * Advent of Code
+ * 
+ * Year: 2024
+ * Day: XX
+ * 
+ * Puzzle URL: https://adventofcode.com/2024/day/XX
+ */
+
 var lib = require( '../../lib' ),
     sample = lib.readFile( 'input_sample.txt', cleanData ),
     input = lib.readFile( 'input.txt', cleanData );
@@ -15,11 +24,11 @@ var lib = require( '../../lib' ),
         'Sample Calculated': part1( sample ), 
         // 'Real Calculated': part1( input ) 
     },
-    "Part 2": {
-        'Sample Expected': 'N/A',
-        'Sample Calculated': part2( sample ), 
-        // 'Real Calculated': part2( input ) 
-    }
+    // "Part 2": {
+    //     'Sample Expected': 'N/A',
+    //     'Sample Calculated': part2( sample ), 
+    //     // 'Real Calculated': part2( input ) 
+    // }
 };
 
 console.table( result );
