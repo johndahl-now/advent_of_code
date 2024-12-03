@@ -46,7 +46,7 @@ console.table( result );
  *****************************************/ 
 
 function cleanData( data ){
-    return data.match( /(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))/g );
+    return data.match( /(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))/gm );
 }
 
 function part1( data ){
