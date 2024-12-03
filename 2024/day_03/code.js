@@ -21,13 +21,13 @@ var lib = require( '../../lib' ),
  var result = {
     "Part 1": {
         'Sample Expected': 161,
-        'Sample Calculated': part1( cleanData( "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))" ) ), 
-        'Real Calculated': part1( input ) 
+        'Sample Calculated': calculate( cleanData( "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))" ) ), 
+        'Real Calculated': calculate( input ) 
     },
     "Part 2": {
         'Sample Expected': 48,
-        'Sample Calculated': part2( cleanData( "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))" ) ), 
-        'Real Calculated': part2( input ) 
+        'Sample Calculated': calculate( cleanData( "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))" ), true ), 
+        'Real Calculated': calculate( input, true ) 
     }
 };
 
@@ -49,26 +49,15 @@ function cleanData( data ){
     return data.match( /(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))/gm );
 }
 
-function part1( data ){
-    let result = 0;
-
-    data.forEach( rec => {
-        if( rec.startsWith( 'mul' ) )
-            result += eval( rec );
-    } );
-
-    return result;
-}
-
-function part2( data ){
+function calculate( data, p2 ){
     let result = 0,
         enabled = true;
 
     data.forEach( rec => {
-        if( rec.startsWith( "don't" ) ){
+        if( p2 && rec.startsWith( "don't" ) ){
             enabled = false;
         }
-        else if( rec.startsWith( "do" ) ){
+        else if( p2 && rec.startsWith( "do" ) ){
             enabled = true;
         }
         else if( rec.startsWith( 'mul' ) && enabled == true ){
