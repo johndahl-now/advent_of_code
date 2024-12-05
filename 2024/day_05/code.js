@@ -69,6 +69,7 @@ function part1( data ){
     let rules = data.rules;
     let updates = data.updates.slice(0);
     let result = 0;
+    bad_updates = [];
 
     updates.forEach( ( update, idx, arr ) => {
 
@@ -98,8 +99,6 @@ function part2( data ){
     let rules = data.rules
         result = 0;
     
-    // Generate a clean set of "bad updates"
-    bad_updates = [];
     part1( data );
 
     let fixed_updates = bad_updates
@@ -125,7 +124,7 @@ function sortBadUpdate( update, rules ){
     let degrees = {},
         queue = [],
         relevantRules = {},
-        thisUpdate = [],
+        fixed_update = [],
         updateSet = new Set(update);
  
     // Initialize the relevantRules and degrees objects.
@@ -153,7 +152,7 @@ function sortBadUpdate( update, rules ){
     // Process the queue and sort the update pages
     while( queue.length > 0 ){
         let currentPage = queue.shift();
-        thisUpdate.push( currentPage );
+        fixed_update.push( currentPage );
 
         relevantRules[ currentPage ].forEach( dependentPage => {
             degrees[ dependentPage ]--;
@@ -163,6 +162,6 @@ function sortBadUpdate( update, rules ){
         } );
     }
 
-    return thisUpdate;
+    return fixed_update;
 
 }
