@@ -124,8 +124,7 @@ function sortBadUpdate( update, rules ){
     let degrees = {},
         queue = [],
         relevantRules = {},
-        fixed_update = [],
-        updateSet = new Set(update);
+        fixed_update = [];
  
     // Initialize the relevantRules and degrees objects.
     update.forEach( page => {
@@ -136,7 +135,7 @@ function sortBadUpdate( update, rules ){
     // Check the rules to set the relevantRules and the rule's degree for this update.
     rules.forEach( rule => {
         let [ a, b ] = rule;
-        if( updateSet.has( a ) && updateSet.has( b ) ){
+        if( update.indexOf( a ) > -1 && update.indexOf( b ) > -1 ){
             relevantRules[ a ].push( b );
             degrees[ b ]++;
         }
