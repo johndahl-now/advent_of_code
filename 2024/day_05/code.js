@@ -4,9 +4,9 @@
  * Advent of Code
  * 
  * Year: 2024
- * Day: XX
+ * Day: 05
  * 
- * Puzzle URL: https://adventofcode.com/2024/day/
+ * Puzzle URL: https://adventofcode.com/2024/day/5
  */
 
 var lib = require( '../../lib' ),
