@@ -25,29 +25,66 @@ exports.readFile = function( filename, cleanFunction ){
     }
 }
 
-if( !Array.prototype.sum ){
-    Array.prototype.sum = function(){
+
+if( !Array.prototype.add ){
+    Array.prototype.add = function( arr ){
         /* Given an array of numeric values,
-         * add the elements together and
-         * return the result.
+         * add the elements to the current array and
+         * return a new array.
          */
-        return this.reduce( function( total, value ){
-            return total += Number( value );
-        }, 0 );
+        return this.map( function( value, idx, arr ){
+            return value += arr[ idx ];
+        } );
     }
 }
 
-
-if( !Array.prototype.product ){
-    Array.prototype.product = function(){
-        /* Given an array of numeric values,
-         * multiple the values together and
-         * return the result.
+if( !Array.prototype.deduplicate ){
+    Array.prototype.deduplicate = function(){
+        /* Given an array of values,
+         * identify the values that appear more than once.
+         * Retain the first occurrence and remove the rest.
+         * return a new array.
          */
+        return this.filter( ( x, idx, arr ) => arr.indexOf( x ) == idx );
+    }
+}
 
-        return this.reduce( function( total, value ){
-            return total *= Number( value );
-        }, 1 );
+if( !Array.prototype.intersection ){
+    Array.prototype.intersection = function( arr ){
+        /* Given an array of values and a second array as a parameter,
+         * identify the values that appear in both arrays.
+         * return a new array.
+         */
+        return this.filter( x => arr.indexOf( x ) > -1 );
+    }
+}
+
+if( !Array.prototype.max ){
+    Array.prototype.max = function(){
+        /* Given an array of numbers,
+         * return the largest number.
+         */
+        return this.numSort( 'desc' )[0];
+    }
+}
+
+if( !Array.prototype.min ){
+    Array.prototype.min = function(){
+        /* Given an array of numbers,
+         * return the largest number.
+         */
+        return this.numSort()[0];
+    }
+}
+
+if( !Array.prototype.numSort ){
+    Array.prototype.numSort = function( order ){
+        /* Given an array of values and optionally an order value,
+         * perform a numeric sort of the values in the order provided or ascending.
+         * return a new array.
+         */
+        ( order == 'desc' ) ? this.sort( ( a, b ) => b-a ) : this.sort( ( a, b ) => a-b );
+        return this;
     }
 }
 
@@ -71,58 +108,26 @@ if( !Array.prototype.parseNum ){
     }
 }
 
-if( !Array.prototype.numSort ){
-    Array.prototype.numSort = function( order ){
-        /* Given an array of values and optionally an order value,
-         * perform a numeric sort of the values in the order provided or ascending.
-         * return a new array.
+if( !Object.prototype.print ){
+    Object.prototype.print = function( spread ){
+        /* Given an Object and optional boolean to spread,
+         * stringify the object and return it.
          */
-        ( order == 'desc' ) ? this.sort( ( a, b ) => b-a ) : this.sort( ( a, b ) => a-b );
-        return this;
+
+        return spread ? JSON.stringify( this, null, 2 ) : JSON.stringify( this );
     }
 }
 
-if( !Array.prototype.intersection ){
-    Array.prototype.intersection = function( arr ){
-        /* Given an array of values and a second array as a parameter,
-         * identify the values that appear in both arrays.
-         * return a new array.
+if( !Array.prototype.product ){
+    Array.prototype.product = function(){
+        /* Given an array of numeric values,
+         * multiple the values together and
+         * return the result.
          */
-        return this.filter( x => arr.indexOf( x ) > -1 );
-    }
-}
 
-if( !Array.prototype.union ){
-    Array.prototype.union = function( arr ){
-        /* Given an array of values and a second array as a parameter,
-         * identify all of the values that appear in either array.
-         * Remove any duplicates and return a new array.
-         */
-        return this
-        .concat( arr )
-        .deduplicate();
-    }
-}
-
-if( !Array.prototype.deduplicate ){
-    Array.prototype.deduplicate = function(){
-        /* Given an array of values,
-         * identify the values that appear more than once.
-         * Retain the first occurrence and remove the rest.
-         * return a new array.
-         */
-        return this.filter( ( x, idx, arr ) => arr.indexOf( x ) == idx );
-    }
-}
-
-if( !Array.prototype.transpose ){
-    Array.prototype.transpose = function(){
-        /* Given an array of arrays,
-         * transpose the structure... 
-         * swap the veritical and horizontal axis.
-         * Return a new array.
-         */
-        return this.reduce( ( prev, next ) => next.map( ( item, i ) => ( prev[ i ] || [] ).concat( next[ i ] ) ), [] );
+        return this.reduce( function( total, value ){
+            return total *= Number( value );
+        }, 1 );
     }
 }
 
@@ -143,23 +148,41 @@ if( !Array.prototype.sortByColumn ){
     }
 }
 
-if( !Array.prototype.max ){
-    Array.prototype.max = function(){
-        /* Given an array of numbers,
-         * return the largest number.
+if( !Array.prototype.sum ){
+    Array.prototype.sum = function(){
+        /* Given an array of numeric values,
+         * add the elements together and
+         * return the result.
          */
-        return this.numSort( 'desc' )[0];
+        return this.reduce( function( total, value ){
+            return total += Number( value );
+        }, 0 );
     }
 }
 
-if( !Array.prototype.min ){
-    Array.prototype.min = function(){
-        /* Given an array of numbers,
-         * return the largest number.
+if( !Array.prototype.transpose ){
+    Array.prototype.transpose = function(){
+        /* Given an array of arrays,
+         * transpose the structure... 
+         * swap the veritical and horizontal axis.
+         * Return a new array.
          */
-        return this.numSort()[0];
+        return this.reduce( ( prev, next ) => next.map( ( item, i ) => ( prev[ i ] || [] ).concat( next[ i ] ) ), [] );
     }
 }
+
+if( !Array.prototype.union ){
+    Array.prototype.union = function( arr ){
+        /* Given an array of values and a second array as a parameter,
+         * identify all of the values that appear in either array.
+         * Remove any duplicates and return a new array.
+         */
+        return this
+        .concat( arr )
+        .deduplicate();
+    }
+}
+
 
 /*****************************************************
  * Deprecated functions. Use Array methods instead.
