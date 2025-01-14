@@ -1,14 +1,5 @@
 const fs = require('fs');
 
-/* New Array Method Template
-if( !Array.prototype.newMethod ){
-    Array.prototype.newMethod = function( param1 ){
-        // Do something here.
-        // Reference the array with `this`.
-        // Return a new array to enable chaining.
-    }
-}
-*/
 
 exports.readFile = function( filename, cleanFunction ){
     /* Given a file name (including path if required) and
@@ -25,6 +16,19 @@ exports.readFile = function( filename, cleanFunction ){
     }
 }
 
+/*******************************
+ * Array Methods
+ * 
+ * New method template:
+
+    if( !Array.prototype.newMethod ){
+        Array.prototype.newMethod = function( param1 ){
+            // Do something here.
+            // Reference the array with `this`.
+            // Return a new array to enable chaining.
+        }
+    }
+*/
 
 if( !Array.prototype.add ){
     Array.prototype.add = function( arr ){
@@ -108,16 +112,6 @@ if( !Array.prototype.parseNum ){
     }
 }
 
-if( !Object.prototype.print ){
-    Object.prototype.print = function( spread ){
-        /* Given an Object and optional boolean to spread,
-         * stringify the object and return it.
-         */
-
-        return spread ? JSON.stringify( this, null, 2 ) : JSON.stringify( this );
-    }
-}
-
 if( !Array.prototype.product ){
     Array.prototype.product = function(){
         /* Given an array of numeric values,
@@ -180,6 +174,20 @@ if( !Array.prototype.union ){
         return this
         .concat( arr )
         .deduplicate();
+    }
+}
+
+/*******************************
+ * Object Methods
+ */
+
+if( !Object.prototype.print ){
+    Object.prototype.print = function( spread ){
+        /* Given an Object and optional boolean to spread,
+         * stringify the object and return it.
+         */
+
+        return spread ? JSON.stringify( this, null, 2 ) : JSON.stringify( this );
     }
 }
 
